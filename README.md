@@ -51,7 +51,7 @@ pip install git+https://github.com/huggingface/optimum-habana.git # workaround u
 
 After we have installed the packages we can start fine-tuning a transformers model with the `optimum` package. Below you can find a simplified example fine-tuning `bert-base-uncased` model on the `emotion` dataset for `text-classification` task. This is a very simplified example, which only uses 1 Gaudi Processor instead of 8 and the `TrainingArguments` are not optimized.
 
-```bash
+```python
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 from datasets import load_dataset
 from optimum.habana import GaudiTrainer, GaudiTrainingArguments
