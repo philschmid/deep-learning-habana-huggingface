@@ -24,6 +24,7 @@ aws ec2 run-instances \
   --count 1 \
   --instance-type ${INSTANCE_TYPE} \
   --security-group-ids ${SECURITY_GROUP_ID} \
+  --block-device-mappings 'DeviceName=/dev/sda1,Ebs={VolumeSize=150}' \
   --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${INSTANCE_NAME}-demo}]" \
   2>&1 > /dev/null
 
