@@ -27,6 +27,11 @@ Before we can start make sure you have met the following requirements
 ## Create an AWS EC2 instance via `start_instance.sh`
 
 ```bash
+export AWS_PROFILE=sandbox
+export AWS_DEFAULT_REGION=us-east-1
+```
+
+```bash
 ./start_instance.sh
 ```
 
