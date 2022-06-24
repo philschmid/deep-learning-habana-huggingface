@@ -78,7 +78,7 @@ if __name__ == "__main__":
         }
   
     # Prepare model labels - useful in inference API
-    labels = train_dataset.features["labels"].names
+    labels = train_dataset.features["label"].names
     num_labels = len(labels)
     label2id, id2label = dict(), dict()
     for i, label in enumerate(labels):
@@ -100,6 +100,7 @@ if __name__ == "__main__":
     
     if args.use_habana == True:
       from optimum.habana import GaudiTrainer, GaudiTrainingArguments
+      print("running training on Habana")
       training_args = GaudiTrainingArguments(
           output_dir=repository_id,
           use_habana=True,
@@ -136,6 +137,7 @@ if __name__ == "__main__":
       )
     else:
       from transformers import Trainer, TrainingArguments
+      print("running training on GPU")
       training_args = TrainingArguments(
           output_dir=repository_id,
           num_train_epochs=hyperparameters.num_train_epochs,

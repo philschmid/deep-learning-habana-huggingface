@@ -2,7 +2,7 @@
 
 This repository contains instructions for getting started with Deep Learning on Habana Gaudi with Hugging Face libraries like [transformers](https://huggingface.co/docs/transformers/index), [optimum](https://huggingface.co/docs/optimum/index), [datasets](https://huggingface.co/docs/datasets/index). This guide will show you how to set up the development environment on the AWS cloud and get started with Hugging Face Libraries. 
 
-A detailed guide/blog post can be found on [philschmid.de/getting-started-habana-gaudi](https://philschmid.de/getting-started-habana-gaudi).
+A detailed guide/blog post can be found on [philschmid.de/getting-started-habana-gaudi](https://www.philschmid.de/getting-started-habana-gaudi).
 
 This guide will cover:
 
@@ -42,7 +42,22 @@ Test Habana devices with docker command
 docker run -ti --runtime=habana -e HABANA_VISIBLE_DEVICES=all -e OMPI_MCA_btl_vader_single_copy_mechanism=none --cap-add=sys_nice --net=host --ipc=host -v $(pwd):/home/ubuntu/dev --workdir=/home/ubuntu/dev vault.habana.ai/gaudi-docker/1.4.1/ubuntu20.04/habanalabs/pytorch-installer-1.10.2:1.4.1-11 hl-smi
 ```
 
+
 ![hl-smi](assets/hl-smi.png)
+
+Intall jupyter lab
+
+
+```bash
+docker run -it --runtime=habana -e HABANA_VISIBLE_DEVICES=all -e OMPI_MCA_btl_vader_single_copy_mechanism=none --cap-add=sys_nice --net=host --ipc=host -v /home/ubuntu:/home/ubuntu -w /home/ubuntu vault.habana.ai/gaudi-docker/1.4.1/ubuntu20.04/habanalabs/pytorch-installer-1.10.2:1.4.1-11
+```
+
+```bash
+pip install jupyter
+git clone https://github.com/philschmid/deep-learning-habana-huggingface.git
+cd fine-tuning
+jupyter notebook --allow-root
+```
 
 
 ## Fine-tune Hugging Face Transformers with Optimum
