@@ -8,14 +8,11 @@ from transformers import AutoTokenizer
 from huggingface_hub import HfFolder
 
 if __name__ == "__main__":
-    print(sys.argv)
     parser = argparse.ArgumentParser()
 
     # hyperparameters sent by the client are passed as command-line arguments to the script.
     parser.add_argument("--use_habana", type=bool)
     args, _ = parser.parse_known_args()
-
-    print(args)
 
     # training arguments 
     model_id = "xlm-roberta-large"
@@ -27,10 +24,10 @@ if __name__ == "__main__":
    
     @dataclass
     class hyperparameters:
-        num_train_epochs=5,
-        per_device_train_batch_size=16,
-        per_device_eval_batch_size=16,
-        learning_rate=3e-5,
+        num_train_epochs=5
+        per_device_train_batch_size=16
+        per_device_eval_batch_size=16
+        learning_rate=3e-5
     
     #
     # data preprocessing
