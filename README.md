@@ -6,12 +6,12 @@ A detailed guide/blog post can be found on [philschmid.de/getting-started-habana
 
 This guide will cover:
 
-1. [Requirements](https://philschmid.de/getting-started-habana-gaudi#1-requirements)
-2. [Create an AWS EC2 instance](https://philschmid.de/getting-started-habana-gaudi#2-create-an-aws-ec2-instance)
-3. [Connect to the instance via ssh](https://philschmid.de/getting-started-habana-gaudi#3-connect-to-the-instance-via-ssh)
-4. [Use Jupyter Notebook/Lab via ssh](https://philschmid.de/getting-started-habana-gaudi#4-use-jupyter-notebook-lab-via-ssh)
-5. [Fine-tune Hugging Face Transformers with Optimum](https://philschmid.de/getting-started-habana-gaudi#5-fine-tune-hugging-face-transformers-with-optimum)
-6. [Clean up](https://philschmid.de/getting-started-habana-gaudi#6-clean-up)
+1. [Requirements](https://www.philschmid.de/getting-started-habana-gaudi#1-requirements)
+2. [Create an AWS EC2 instance](https://www.philschmid.de/getting-started-habana-gaudi#2-create-an-aws-ec2-instance)
+3. [Connect to the instance via ssh](https://www.philschmid.de/getting-started-habana-gaudi#3-connect-to-the-instance-via-ssh)
+4. [Use Jupyter Notebook/Lab via ssh](https://www.philschmid.de/getting-started-habana-gaudi#4-use-jupyter-notebook-lab-via-ssh)
+5. [Fine-tune Hugging Face Transformers with Optimum](https://www.philschmid.de/getting-started-habana-gaudi#5-fine-tune-hugging-face-transformers-with-optimum)
+6. [Clean up](https://www.philschmid.de/getting-started-habana-gaudi#6-clean-up)
 
 Let's get started! 🚀
 

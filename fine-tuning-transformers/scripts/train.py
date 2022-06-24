@@ -25,10 +25,10 @@ if __name__ == "__main__":
     @dataclass
     class hyperparameters:
         num_train_epochs=5
-        per_device_train_batch_size=16
-        per_device_eval_batch_size=16
+        per_device_train_batch_size=8
+        per_device_eval_batch_size=8
         learning_rate=3e-5
-    
+        
     #
     # data preprocessing
     #
@@ -178,3 +178,5 @@ if __name__ == "__main__":
     trainer.train()
     # evaluate model
     trainer.evaluate(eval_dataset=tokenized_datasets["validation"])
+    # create model card
+    trainer.create_model_card()
