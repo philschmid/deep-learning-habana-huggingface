@@ -1,4 +1,5 @@
 import argparse
+from dataclasses import dataclass
 import numpy as np
 from datasets import load_dataset, concatenate_datasets, DatasetDict,load_metric
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, Trainer, TrainingArguments
@@ -13,6 +14,8 @@ if __name__ == "__main__":
     parser.add_argument("--use_habana", type=bool)
     args, _ = parser.parse_known_args()
 
+    print(args)
+
     # training arguments 
     model_id = "xlm-roberta-large"
     gaudi_config_id= "Habana/roberta-large" # more here: https://huggingface.co/Habana
@@ -20,12 +23,13 @@ if __name__ == "__main__":
     dataset_configs=["en-US","de-DE","fr-FR","it-IT","pt-PT","es-ES","nl-NL"]
     seed=33
     repository_id = "habana-xlm-r-large-amazon-massive" if args.use_habana else "gpu-xlm-roberta-large-amazon-massive"
-    hyperparameters = dict(
+   
+    @dataclass
+    class hyperparameters:
         num_train_epochs=5,
         per_device_train_batch_size=16,
         per_device_eval_batch_size=16,
         learning_rate=3e-5,
-    )
     
     #
     # data preprocessing
