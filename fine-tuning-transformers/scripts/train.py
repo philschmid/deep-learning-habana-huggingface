@@ -1,5 +1,6 @@
 import argparse
 from dataclasses import dataclass
+import sys
 import numpy as np
 from datasets import load_dataset, concatenate_datasets, DatasetDict,load_metric
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, Trainer, TrainingArguments
@@ -7,7 +8,7 @@ from transformers import AutoTokenizer
 from huggingface_hub import HfFolder
 
 if __name__ == "__main__":
-
+    print(sys.argv)
     parser = argparse.ArgumentParser()
 
     # hyperparameters sent by the client are passed as command-line arguments to the script.
