@@ -93,3 +93,21 @@ total
 
 ## NVIDIA V100 [p3.8xlarge](https://aws.amazon.com/ec2/instance-types/p3/?nc1=h_ls)
 
+
+**train results**
+
+```bash
+{'loss': 2.7488, 'learning_rate': 2.400327543424318e-05, 'epoch': 1.0}
+```
+
+total
+```bash
+
+```
+
+
+**eval results**
+
+```bash
+
+```
