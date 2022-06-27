@@ -54,13 +54,15 @@ _**NOTE**: The following steps assume that the code/cells are running on a gaudi
 
 # Results
 
-Below you can find the results of the training using Habana Gaudi and NVIDIA V100.
+Below you can find the results of the fine-tuning `XLM-RoBERTa-large` on the `MASSIVE` dataset using Habana Gaudi and NVIDIA V100.
 
-## Habana Gaudi
+| accelerator        | training time (in minutes) | total cost | total batch size | aws instance type                                                    | instance price per hour |
+|--------------------|----------------------------|------------|------------------|----------------------------------------------------------------------|-------------------------|
+| Habana Gaudi (HPU) | 52.6                       | $11,55     | 64               | [dl1.24xlarge](https://aws.amazon.com/ec2/instance-types/dl1/)       | $13.11                  |
+| NVIDIA V100 (GPU)  |                            |            |                  | [p3.8xlarge](https://aws.amazon.com/ec2/instance-types/p3/?nc1=h_ls) | $12.24                  |
 
-### 1x HPU apporx. 300min
 
-## 8x HPU approx. 41min
+## Habana Gaudi [dl1.24xlarge](https://aws.amazon.com/ec2/instance-types/dl1/)
 
 **train results**
 
@@ -89,5 +91,5 @@ total
 {'eval_loss': 0.4137658476829529, 'eval_accuracy': 0.9172932330827067, 'eval_f1': 0.9172932330827067, 'eval_runtime': 30.3464, 'eval_samples_per_second': 468.952, 'eval_steps_per_second': 7.348, 'epoch': 5.0}
 ```
 
-## NVIDIA V100
+## NVIDIA V100 [p3.8xlarge](https://aws.amazon.com/ec2/instance-types/p3/?nc1=h_ls)
 

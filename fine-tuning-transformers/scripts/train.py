@@ -25,8 +25,8 @@ if __name__ == "__main__":
     @dataclass
     class hyperparameters:
         num_train_epochs=5
-        per_device_train_batch_size=8 if args.use_habana else 4
-        per_device_eval_batch_size=8 if args.use_habana else 4
+        per_device_train_batch_size=8 if args.use_habana else 1
+        per_device_eval_batch_size=8 if args.use_habana else 1
         learning_rate=3e-5
         
     #
@@ -162,7 +162,7 @@ if __name__ == "__main__":
           push_to_hub=True,
           hub_strategy="every_save",
           hub_model_id=repository_id,
-          hub_token=HfFolder.get_token()
+          hub_token="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"
       )
       # create Trainer
       trainer = Trainer(
