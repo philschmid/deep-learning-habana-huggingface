@@ -102,7 +102,7 @@ run distributed training
 python3 -m torch.distributed.launch --nproc_per_node=4 scripts/train.py
 ```
 
-run training
+run single gpu training
 ```bash
 CUDA_VISIBLE_DEVICES="0" python3  scripts/train.py
 ```
