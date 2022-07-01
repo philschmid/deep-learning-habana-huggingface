@@ -58,8 +58,8 @@ Below you can find the results of the fine-tuning `XLM-RoBERTa-large` on the `MA
 
 | accelerator        | training time (in minutes) | total cost | total batch size | aws instance type                                                    | instance price per hour |
 |--------------------|----------------------------|------------|------------------|----------------------------------------------------------------------|-------------------------|
-| Habana Gaudi (HPU) | 52.6                       | $11,55     | 64               | [dl1.24xlarge](https://aws.amazon.com/ec2/instance-types/dl1/)       | $13.11                  |
-| NVIDIA V100 (GPU)  |                            |            |                  | [p3.8xlarge](https://aws.amazon.com/ec2/instance-types/p3/?nc1=h_ls) | $12.24                  |
+| Habana Gaudi (HPU) | 52.6                       | $11.55     | 64               | [dl1.24xlarge](https://aws.amazon.com/ec2/instance-types/dl1/)       | $13.11                  |
+| NVIDIA V100 (GPU)  |     439.8                       |  $89.72          |  4                | [p3.8xlarge](https://aws.amazon.com/ec2/instance-types/p3/?nc1=h_ls) | $12.24                  |
 
 
 ## Habana Gaudi [dl1.24xlarge](https://aws.amazon.com/ec2/instance-types/dl1/)
@@ -73,7 +73,7 @@ Below you can find the results of the fine-tuning `XLM-RoBERTa-large` on the `MA
 {'loss': 0.0308, 'learning_rate': 6e-06, 'epoch': 4.0}
 {'loss': 0.0165, 'learning_rate': 0.0, 'epoch': 5.0}
 ```
-
+****
 total
 ```bash
 {'train_runtime': 3172.4502, 'train_samples_per_second': 127.028, 'train_steps_per_second': 1.986, 'train_loss': 0.09531746031746031, 'epoch': 5.0}
@@ -98,16 +98,13 @@ total
 
 ```bash
 {'loss': 2.7488, 'learning_rate': 2.400327543424318e-05, 'epoch': 1.0}
+{'loss': 2.7332, 'learning_rate': 1.8005955334987592e-05, 'epoch': 2.0}
+{'loss': 2.7211, 'learning_rate': 1.200893300248139e-05, 'epoch': 3.0}
+{'loss': 2.7128, 'learning_rate': 6.011315136476427e-06, 'epoch': 4.0}
+{'loss': 2.7055, 'learning_rate': 1.3101736972704715e-08, 'epoch': 5.0}
 ```
 
 total
 ```bash
-
-```
-
-
-**eval results**
-
-```bash
-
+{'train_runtime': 26390.556, 'train_samples_per_second': 15.27, 'train_steps_per_second': 3.818, 'train_loss': 2.7239628179280397, 'epoch': 5.0}
 ```

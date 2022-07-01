@@ -141,18 +141,18 @@ if __name__ == "__main__":
       from transformers import Trainer, TrainingArguments
       print("running training on GPU")
       training_args = TrainingArguments(
-          output_dir=repository_id,
+          output_dir=f"/opt/ml/model/{repository_id}",
           num_train_epochs=hyperparameters.num_train_epochs,
           per_device_train_batch_size=hyperparameters.per_device_train_batch_size,
           per_device_eval_batch_size=hyperparameters.per_device_eval_batch_size,
           learning_rate=hyperparameters.learning_rate,
           seed=seed,
           # logging & evaluation strategies
-          logging_dir=f"{repository_id}/logs",
+          logging_dir=f"/opt/ml/model/{repository_id}/logs",
           logging_strategy="epoch",
           evaluation_strategy="epoch",
           save_strategy="epoch",
-          save_total_limit=2,
+          save_total_limit=1,
           load_best_model_at_end=True,
           metric_for_best_model="f1",
           report_to="tensorboard",
