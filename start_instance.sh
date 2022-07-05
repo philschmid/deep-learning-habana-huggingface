@@ -37,4 +37,4 @@ PUBLIC_DOMAIN=$(aws ec2 describe-instances \
     --query 'Reservations[*].Instances[*].PublicDnsName' \
     --output text)
 
-echo "connect to instance via ssh with:\nssh -i ${KEY_NAME}.pem ubuntu@${PUBLIC_DOMAIN//[$'\t\r\n ']}"
+echo "connect to instance via ssh with:\nssh -L 8888:localhost:8888 -i ${KEY_NAME}.pem ubuntu@${PUBLIC_DOMAIN//[$'\t\r\n ']}"
