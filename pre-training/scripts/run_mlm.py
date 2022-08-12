@@ -1,4 +1,6 @@
 import os
+
+os.system("python -m pip install git+https://github.com/huggingface/optimum-habana.git")
 import logging
 import sys
 from dataclasses import dataclass, field
@@ -81,15 +83,13 @@ def run_mlm():
     train_dataset = load_dataset(script_args.dataset_id, split="train")
     # load trained tokenizer
     # comment in
-    # tokenizer = AutoTokenizer.from_pretrained(script_args.tokenizer_id, use_auth_token=script_args.hf_hub_token)
-    tokenizer = AutoTokenizer.from_pretrained(script_args.model_config_id, use_auth_token=script_args.hf_hub_token)
+    tokenizer = AutoTokenizer.from_pretrained(script_args.tokenizer_id, use_auth_token=script_args.hf_hub_token)
 
     # load model from config (for training from scratch)
     logger.info("Training new model from scratch")
     # comment in
-    # config = AutoConfig.from_pretrained(script_args.model_config_id)
-    # model = AutoModelForMaskedLM.from_config(config)
-    model = AutoModelForMaskedLM.from_config(script_args.model_config_id)
+    config = AutoConfig.from_pretrained(script_args.model_config_id)
+    model = AutoModelForMaskedLM.from_config(config)
 
     logger.info(f"Resizing token embedding to {len(tokenizer)}")
     # model.resize_token_embeddings(len(tokenizer))
@@ -108,13 +108,11 @@ def run_mlm():
         per_device_train_batch_size=script_args.per_device_train_batch_size,
         learning_rate=script_args.learning_rate,
         seed=seed,
-        num_train_epochs=1,
-        # comment in
-        # max_steps=script_args.max_steps,
+        max_steps=script_args.max_steps,
         # logging & evaluation strategies
         logging_dir=f"{script_args.repository_id}/logs",
         logging_strategy="steps",
-        logging_steps=10_000,
+        logging_steps=500,
         save_strategy="steps",
         save_steps=10_000,
         save_total_limit=2,
@@ -124,6 +122,8 @@ def run_mlm():
         hub_strategy="every_save",
         hub_model_id=script_args.repository_id,
         hub_token=script_args.hf_hub_token,
+        # pretraining
+        ddp_find_unused_parameters=True,
     )
 
     # Initialize our Trainer
