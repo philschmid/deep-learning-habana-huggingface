@@ -1,6 +1,6 @@
 import os
 
-# os.system("python -m pip install git+https://github.com/huggingface/optimum-habana.git")
+os.system("python -m pip install git+https://github.com/huggingface/optimum-habana.git")
 import logging
 import sys
 from dataclasses import dataclass, field
@@ -15,8 +15,7 @@ from transformers import (
     DataCollatorForLanguageModeling,
 )
 
-# from optimum.habana import GaudiTrainer, GaudiTrainingArguments
-from transformers import Trainer as GaudiTrainer, TrainingArguments as GaudiTrainingArguments
+from optimum.habana import GaudiTrainer, GaudiTrainingArguments
 from datasets import load_dataset
 
 
@@ -103,9 +102,9 @@ def run_mlm():
     # define our hyperparameters
     gaudi_training_args = GaudiTrainingArguments(
         output_dir=script_args.repository_id,
-        # use_habana=True,
-        # use_lazy_mode=True,
-        # gaudi_config_name=script_args.gaudi_config_id,
+        use_habana=True,
+        use_lazy_mode=True,
+        gaudi_config_name=script_args.gaudi_config_id,
         per_device_train_batch_size=script_args.per_device_train_batch_size,
         learning_rate=script_args.learning_rate,
         seed=seed,
