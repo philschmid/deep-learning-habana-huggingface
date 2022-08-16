@@ -82,12 +82,10 @@ def run_mlm():
     # load processed dataset
     train_dataset = load_dataset(script_args.dataset_id, split="train")
     # load trained tokenizer
-    # comment in
     tokenizer = AutoTokenizer.from_pretrained(script_args.tokenizer_id, use_auth_token=script_args.hf_hub_token)
 
     # load model from config (for training from scratch)
     logger.info("Training new model from scratch")
-    # comment in
     config = AutoConfig.from_pretrained(script_args.model_config_id)
     model = AutoModelForMaskedLM.from_config(config)
 
@@ -112,7 +110,7 @@ def run_mlm():
         # logging & evaluation strategies
         logging_dir=f"{script_args.repository_id}/logs",
         logging_strategy="steps",
-        logging_steps=500,
+        logging_steps=100,
         save_strategy="steps",
         save_steps=5_000,
         save_total_limit=2,
@@ -124,6 +122,7 @@ def run_mlm():
         hub_token=script_args.hf_hub_token,
         # pretraining
         ddp_find_unused_parameters=True,
+        throughput_warmup_steps=2,
     )
 
     # Initialize our Trainer
