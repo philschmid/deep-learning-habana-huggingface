@@ -52,7 +52,7 @@ class ScriptArguments:
         default="bert-base-uncased", metadata={"help": "Pretrained config name or path if not the same as model_name"}
     )
     gaudi_config_id: Optional[str] = field(
-        default="Habana/bert-base-uncased",
+        default=None,
         metadata={"help": "Habana config used for fp16 ops.  more here: https://huggingface.co/Habana"},
     )
     per_device_train_batch_size: Optional[int] = field(
