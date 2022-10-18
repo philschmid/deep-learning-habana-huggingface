@@ -1,6 +1,4 @@
 import os
-
-os.system("python -m pip install git+https://github.com/huggingface/optimum-habana.git")
 import logging
 import sys
 from dataclasses import dataclass, field
@@ -80,7 +78,7 @@ def run_mlm():
     # load processed dataset
     dataset = load_dataset(script_args.dataset_id)
     # load trained tokenizer
-    tokenizer = AutoTokenizer.from_pretrained(script_args.tokenizer_id, use_auth_token=script_args.hf_hub_token)
+    tokenizer = AutoTokenizer.from_pretrained(script_args.model_id, use_auth_token=script_args.hf_hub_token)
 
     max_input_length = 512
     max_target_length = 64
