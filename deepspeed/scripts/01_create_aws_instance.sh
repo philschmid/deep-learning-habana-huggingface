@@ -4,6 +4,8 @@ INSTANCE_TYPE=dl1.24xlarge
 AMI_ID=$(aws ec2 describe-images --filters "Name=name,Values=optimum-habana-synapse-1.6.0"  --query 'Images[0].ImageId' --output text)
 echo "AMI ID: ${AMI_ID}"
 
+export AWS_PROFILE=hf-sm 
+export AWS_DEFAULT_REGION=us-east-1 
 
 # create key pair for ssh
 aws ec2 create-key-pair --key-name habana --query 'KeyMaterial' --output text > ${NAME}.pem
@@ -27,15 +29,10 @@ aws ec2 run-instances \
   --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${NAME}-demo}]" \
   2>&1 > /dev/null
 
-# connect via ssh
-echo "Waiting for the instance to start..."
-sleep 45
-
-PUBLIC_DOMAIN=$(aws ec2 describe-instances \
-    --filters Name=tag-value,Values=habana-demo  \
-    --query 'Reservations[*].Instances[*].PublicDnsName' \
-    --output text)
-
-echo "Connect to instance via ssh with:\nssh -L 8888:localhost:8888 -i ${NAME}.pem ubuntu@${PUBLIC_DOMAIN//[$'\t\r\n ']}"
-
-
+# wait for instance to start
+sleep 5
+INSTANCE_ID=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${NAME}-demo" "Name=instance-state-name,Values=running" --query 'Reservations[*].Instances[*].InstanceId' --output text)
+echo "Waiting for the instance ${INSTANCE_ID} to start..."
+aws ec2 wait instance-running  --instance-ids ${INSTANCE_ID} 2>&1 > /dev/null
+sleep 15
+echo "Instance started"

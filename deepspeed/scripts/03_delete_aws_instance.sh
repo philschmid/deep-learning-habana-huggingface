@@ -1,12 +1,12 @@
 NAME=habana
-export INSTANCE_ID=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${NAME}-demo" "Name=instance-state-name,Values=running" --query 'Reservations[*].Instances[*].InstanceId' --output text)
+INSTANCE_ID=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${NAME}-demo" "Name=instance-state-name,Values=running" --query 'Reservations[*].Instances[*].InstanceId' --output text)
 
 # delete local keypair
 echo "deleting local keypair"
 rm -f ${NAME}.pem
 
 # terminate instance
-echo "terminating instance"
+echo "terminating instance: ${INSTANCE_ID}"
 aws ec2 terminate-instances --instance-ids ${INSTANCE_ID} 2>&1 > /dev/null
 
 # wait for termination
