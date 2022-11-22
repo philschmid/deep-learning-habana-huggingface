@@ -7,42 +7,6 @@ from starlette.applications import Starlette
 from starlette.responses import PlainTextResponse, Response
 from starlette.routing import Route
 
-import torch
-import torch.nn as nn
-import torch.optim as optim
-import torch.nn.functional as F
-import torchvision
-import torchvision.transforms as transforms
-import os
-
-# Import Habana Torch Library
-import habana_frameworks.torch.core as htcore
-
-class SimpleModel(nn.Module):
-    def __init__(self):
-        super(SimpleModel, self).__init__()
-
-        self.fc1   = nn.Linear(784, 256)
-        self.fc2   = nn.Linear(256, 64)
-        self.fc3   = nn.Linear(64, 10)
-
-    def forward(self, x):
-
-        out = x.view(-1,28*28)
-        out = F.relu(self.fc1(out))
-        out = F.relu(self.fc2(out))
-        out = self.fc3(out)
-
-        return out
-
-# Target the Gaudi HPU device
-device = torch.device("hpu")
-net = SimpleModel()
-net.to(device)
-
-
-
-
 model_id = "CompVis/stable-diffusion-v1-4"
 hf_hub_token = os.environ.get("HF_HUB_TOKEN", None)
 
@@ -51,16 +15,16 @@ if hf_hub_token is None:
 else:
     login(token=hf_hub_token)
 
-# # load model
-# scheduler = GaudiDDIMScheduler.from_config(model_id, subfolder="scheduler", use_auth_token=hf_hub_token)
-# generator = GaudiStableDiffusionPipeline.from_pretrained(
-#     model_id,
-#     scheduler=scheduler,
-#     use_habana=True,
-#     use_lazy_mode=False,
-#     use_hpu_graphs=True,
-#     gaudi_config="Habana/stable-diffusion",
-# )
+# load model
+scheduler = GaudiDDIMScheduler.from_config(model_id, subfolder="scheduler", use_auth_token=hf_hub_token)
+generator = GaudiStableDiffusionPipeline.from_pretrained(
+    model_id,
+    scheduler=scheduler,
+    use_habana=True,
+    use_lazy_mode=False,
+    use_hpu_graphs=True,
+    gaudi_config="Habana/stable-diffusion",
+)
 
 
 def generate_image(prompt, guide, steps, num_images_per_prompt):
@@ -71,7 +35,10 @@ def generate_image(prompt, guide, steps, num_images_per_prompt):
         num_images_per_prompt=num_images_per_prompt,
         batch_size=1,
     )
-    return outputs.images
+    return outputs.images[0]
+
+
+generate_image("test shield",7,50,1)
 
 
 demo = gr.Interface(
@@ -86,15 +53,6 @@ demo = gr.Interface(
     title="Stable Diffusion on Habana Gaudi",
 )
 
-# demo.queue(max_size=10, concurrency_count=8)
-
-# demo.launch(
-#     enable_queue=True,
-#     server_port=8080,
-# )
-
-
-
 app = Starlette(
     debug=True,
     routes=[],
@@ -102,6 +60,13 @@ app = Starlette(
 )
 app = gr.mount_gradio_app(app, demo, path="/")
 
-# HF_HUB_TOKEN=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 python3 -m uvicorn app.main:app  --workers 2
+# HF_HUB_TOKEN=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 python3 -m uvicorn app.main:app  --workers 8
 
 # HF_HUB_TOKEN=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 python3 app/main.py 
+# HF_HUB_TOKEN=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 python3 test.py
+
+# curl 'http://127.0.0.1:8000/run/predict/' 
+#   --data-raw '{"fn_index":0,"data":["a car with a god on top",7,50,1],"session_hash":"1akgwltg3a2"}' \
+#   --compressed
+
+# # hey benchmark
