@@ -37,17 +37,17 @@ def generate_image(prompt, guide, steps, num_images_per_prompt):
     )
     return outputs.images[0]
 
-
+# runs first generation for fast integration speed
 generate_image("test shield",7,50,1)
 
 
 demo = gr.Interface(
     fn=generate_image,
     inputs=[
-        gr.Textbox(label="Prompt Input Text"),
-        gr.Slider(2, 15, value=7, label="Guidence Scale"),
+        # gr.Textbox(label="Prompt Input Text"),
+        # gr.Slider(2, 15, value=7, label="Guidence Scale"),
         gr.Slider(25, 75, value=50, step=1, label="Number of Iterations"),
-        gr.Slider(label="Number of Images", minimum=1, maximum=16, step=1, value=1),
+        # gr.Slider(label="Number of Images", minimum=1, maximum=16, step=1, value=1),
     ],
     outputs="image",
     title="Stable Diffusion on Habana Gaudi",
@@ -60,13 +60,3 @@ app = Starlette(
 )
 app = gr.mount_gradio_app(app, demo, path="/")
 
-# HF_HUB_TOKEN=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 python3 -m uvicorn app.main:app  --workers 8
-
-# HF_HUB_TOKEN=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 python3 app/main.py 
-# HF_HUB_TOKEN=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 python3 test.py
-
-# curl 'http://127.0.0.1:8000/run/predict/' 
-#   --data-raw '{"fn_index":0,"data":["a car with a god on top",7,50,1],"session_hash":"1akgwltg3a2"}' \
-#   --compressed
-
-# # hey benchmark
