@@ -14,17 +14,15 @@ cdk bootstrap
 ```
 
 ```bash
-cdk deploy
+HF_HUB_TOKEN=hf_xx cdk deploy
 ```
-
-
 
 ## Local Development
 
 **normal**
 
 ```bash
-HF_HUB_TOKEN=hf_x python3 -m uvicorn app.main:app  --workers 8
+HF_HUB_TOKEN=hf_x python3 -m uvicorn app.main:app  --workers 1
 ```
 
 **container**
@@ -34,8 +32,7 @@ docker build -t habana-sd -f container/Dockerfile .
 ```
 
 ```bash
-docker run -ti --runtime=habana -e HABANA_VISIBLE_DEVICES=all -e OMPI_MCA_btl_vader_single_copy_mechanism=none --cap-add=sys_nice --net=host --ipc=host -v $(pwd):/home/ubuntu/dev --workdir=/home/ubuntu/dev habana-sd
-
+docker run -ti --runtime=habana -e HABANA_VISIBLE_DEVICES=all -e OMPI_MCA_btl_vader_single_copy_mechanism=none -e HF_HUB_TOKEN=hf_xx --cap-add=sys_nice --net=host --ipc=host habana-sd
 ```
 
 
