@@ -37,7 +37,7 @@ export class EcsClusterStack extends cdk.Stack {
       cpu: 98000,
       desiredCount: 1,
       taskImageOptions: {
-        image: new ecs.AssetImage(path.join(__dirname, '..'), {
+        image: new ecs.AssetImage(path.join(__dirname, '..','..','app'), {
           file: 'container/Dockerfile',
         }),
         environment: {

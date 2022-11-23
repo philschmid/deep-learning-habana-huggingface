@@ -10,7 +10,7 @@ This repository contains the code (application & infrastructure) to run the Stab
 ## Deploy
 
 ```bash
-cdk bootstrap
+HF_HUB_TOKEN=hf_xx cdk bootstrap
 ```
 
 ```bash
@@ -28,7 +28,7 @@ HF_HUB_TOKEN=hf_x python3 -m uvicorn app.main:app  --workers 1
 **container**
 
 ```bash
-docker build -t habana-sd -f container/Dockerfile .
+docker build -t habana-sd -f app/container/Dockerfile app/
 ```
 
 ```bash
