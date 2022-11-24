@@ -54,12 +54,17 @@ export class EcsClusterStack extends cdk.Stack {
         // Need target security group to allow all inbound traffic for
     // ephemeral port range (when host port is 0).
     loadBalancedEcsService.service.connections.allowFromAnyIpv4(EPHEMERAL_PORT_RANGE);
+    loadBalancedEcsService.targetGroup.configureHealthCheck({
+      interval: cdk.Duration.seconds(30),
+      unhealthyThresholdCount: 10,
+    });
 
-    // loadBalancedEcsService.targetGroup.configureHealthCheck({
-    //   path: "/",
-    //   interval: cdk.Duration.seconds(30),
-    //   unhealthyThresholdCount: 10,
-    // });
+
+    // Outputs
+    new cdk.CfnOutput(this, "networkLoadBalancerURL", {
+      value: "http://"+loadBalancedEcsService.loadBalancer.loadBalancerDnsName,
+      description: "Network LoadBalancer URL"
+    });
   }
 }
 
