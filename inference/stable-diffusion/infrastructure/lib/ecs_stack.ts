@@ -44,6 +44,7 @@ export class EcsClusterStack extends cdk.Stack {
           "HABANA_VISIBLE_DEVICES": "all",
           "HF_HUB_TOKEN": hub_token
         },
+        containerPort: 8000
       },
     });
   }

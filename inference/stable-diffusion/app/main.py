@@ -45,7 +45,7 @@ def infer(prompt, guide=7, steps=50, num_images_per_prompt=4):
     return outputs.images
 
 # runs first generation for fast integration speed
-infer("test shield")
+# infer("test shield")
 
 css = """
         a {
@@ -218,7 +218,7 @@ Despite how impressive being able to turn text into image is, beware to the fact
         )
 # Single HPU
 block.queue(concurrency_count=1,max_size=10)
-block.launch()
+block.launch(server_name="0.0.0.0",server_port=8000)
 
 # Multi HPU
 # start with CMD ["python3", "-m", "uvicorn", "main:app", "--workers", "2"]
