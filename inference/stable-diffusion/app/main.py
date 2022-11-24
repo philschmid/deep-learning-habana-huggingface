@@ -47,7 +47,7 @@ def infer(prompt, guide=7, steps=50, num_images_per_prompt=4):
     return outputs.images
 
 # runs first generation for fast integration speed
-infer("test shield")
+# infer("test shield")
 
 css = """
         a {

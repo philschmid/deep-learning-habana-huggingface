@@ -7,6 +7,8 @@ import * as ecs from 'aws-cdk-lib/aws-ecs';
 import * as elbv2 from 'aws-cdk-lib/aws-elasticloadbalancingv2';
 import * as path from 'path';
 
+const EPHEMERAL_PORT_RANGE = ec2.Port.tcpRange(0, 65535);
+
 export class EcsClusterStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -31,7 +33,7 @@ export class EcsClusterStack extends cdk.Stack {
       throw Error("HF_HUB_TOKEN is not set")
     }
 
-    const loadBalancedEcsService = new ecsPatterns.ApplicationLoadBalancedEc2Service(this, 'Service', {
+    const loadBalancedEcsService = new ecsPatterns.NetworkLoadBalancedEc2Service(this, 'Service', {
       cluster,
       memoryLimitMiB: 760000,
       cpu: 98000,
@@ -49,6 +51,15 @@ export class EcsClusterStack extends cdk.Stack {
         // command: ["hl-smi"]
       },
     });
+        // Need target security group to allow all inbound traffic for
+    // ephemeral port range (when host port is 0).
+    loadBalancedEcsService.service.connections.allowFromAnyIpv4(EPHEMERAL_PORT_RANGE);
+
+    // loadBalancedEcsService.targetGroup.configureHealthCheck({
+    //   path: "/",
+    //   interval: cdk.Duration.seconds(30),
+    //   unhealthyThresholdCount: 10,
+    // });
   }
 }
 
