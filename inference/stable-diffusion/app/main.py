@@ -1,4 +1,6 @@
 import os
+os.system("hl-smi")
+
 import gradio as gr
 from huggingface_hub import login
 from optimum.habana.diffusers import GaudiStableDiffusionPipeline
@@ -45,7 +47,7 @@ def infer(prompt, guide=7, steps=50, num_images_per_prompt=4):
     return outputs.images
 
 # runs first generation for fast integration speed
-# infer("test shield")
+infer("test shield")
 
 css = """
         a {
@@ -216,6 +218,7 @@ Despite how impressive being able to turn text into image is, beware to the fact
                </div>
            """
         )
+        
 # Single HPU
 block.queue(concurrency_count=1,max_size=10)
 block.launch(server_name="0.0.0.0",server_port=8000)
