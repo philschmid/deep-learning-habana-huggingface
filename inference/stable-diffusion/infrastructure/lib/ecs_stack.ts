@@ -29,9 +29,6 @@ export class EcsClusterStack extends cdk.Stack {
     });
 
     const hub_token = process.env.HF_HUB_TOKEN || undefined
-    if (!hub_token) {
-      throw Error("HF_HUB_TOKEN is not set")
-    }
 
     const loadBalancedEcsService = new ecsPatterns.NetworkLoadBalancedEc2Service(this, 'Service', {
       cluster,
