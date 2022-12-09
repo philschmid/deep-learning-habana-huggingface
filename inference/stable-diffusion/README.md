@@ -10,11 +10,11 @@ This repository contains the code (application & infrastructure) to run the Stab
 ## Deploy
 
 ```bash
-HF_HUB_TOKEN=hf_xx cdk bootstrap
+cdk bootstrap
 ```
 
 ```bash
-HF_HUB_TOKEN=hf_xx cdk deploy
+cdk deploy
 ```
 
 ## Local Development
@@ -22,7 +22,7 @@ HF_HUB_TOKEN=hf_xx cdk deploy
 **normal**
 
 ```bash
-HF_HUB_TOKEN=hf_x python3 -m uvicorn app.main:app  --workers 1
+python3 -m uvicorn app.main:app  --workers 1
 ```
 
 **container**
