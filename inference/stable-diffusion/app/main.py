@@ -16,9 +16,7 @@ app = Starlette(
 model_id = "runwayml/stable-diffusion-v1-5"
 hf_hub_token = os.environ.get("HF_HUB_TOKEN", None)
 
-if hf_hub_token is None:
-    raise ValueError("Please set HF_HUB_TOKEN environment variable")
-else:
+if hf_hub_token is not None:
     login(token=hf_hub_token)
 
 # load model
