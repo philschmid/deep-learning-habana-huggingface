@@ -41,7 +41,7 @@ export class EcsClusterStack extends cdk.Stack {
         }),
         environment: {
           "HABANA_VISIBLE_DEVICES": "all",
-          "HF_HUB_TOKEN": hub_token
+          // "HF_HUB_TOKEN": hub_token // not longer needed
         },
         containerPort: 8000,
         // entryPoint: ["/bin/bash", "-c"],
